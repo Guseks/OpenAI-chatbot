@@ -16,9 +16,14 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-10 items-center">
       <h1>Hello World</h1>
-      <button onClick={() => testAPI()}>Test API</button>
+      <button
+        className="w-40 font-bold p-2 bg-stone-200 text-black hover:bg-stone-300"
+        onClick={() => testAPI()}
+      >
+        Test API
+      </button>
     </div>
   );
 }

@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 dotenv.config();
 
+import cors from 'cors'
+
 
 
 const API_KEY = process.env.API_KEY;
@@ -12,6 +14,7 @@ const openai = new OpenAI({apiKey: API_KEY});
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 const PORT = process.env.PORT || 4000;
 
@@ -32,8 +35,9 @@ async function makeRequest(prompt) {
 
 //Gets prompt input from client, makes request and handles response.
 app.get('/request', async (req, res) => {
-  const { prompt } = req.query;
-  await makeRequest(prompt);
+  const { prompt } = req.query
+  console.log(prompt);
+  //await makeRequest(prompt);
   res.status(200).json({ message: "Request processed successfully." });
   
 })
@@ -58,5 +62,5 @@ async function test(){
   
 }
 
-test();
+//test();
 
