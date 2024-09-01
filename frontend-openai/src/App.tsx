@@ -1,4 +1,6 @@
 import LoadingSpinner from "./components/LoadingSpinner";
+import Response from "./components/Response";
+import UserInput from "./components/UserInput";
 import useChatbot from "./hooks/useChatbot";
 
 function App() {
@@ -23,22 +25,8 @@ function App() {
       <div className=" flex justify-center flex-col items-center gap-4">
         <div className="flex flex-col gap-5 overflow-y-auto h-[500px] w-[600px] rounded-lg bg-white font-semibold text-stone-950 items-start p-5 text-sm shadow-stone-950 shadow-sm">
           {responses.length !== 0 ? (
-            responses.map((response) => (
-              <div
-                className="shadow-inner flex flex-col gap-2 "
-                key={responses.indexOf(response)}
-              >
-                <p className="bg-stone-300 p-2 inline-block rounded-md shadow-sm shadow-stone-950">
-                  {response.prompt}
-                </p>
-                <div className=" p-2 inline-block rounded-md shadow-sm shadow-stone-950">
-                  {response.answer.map((item: string) => (
-                    <p className="py-1" key={item}>
-                      {item}
-                    </p>
-                  ))}
-                </div>
-              </div>
+            responses.map((response, index) => (
+              <Response key={index} response={response} />
             ))
           ) : (
             <div className=" flex flex-col items-start gap-2">
@@ -52,28 +40,11 @@ function App() {
           )}
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-          className="flex w-full gap-5"
-        >
-          <input
-            className="p-3 text-black rounded-lg font-semibold w-full shadow-sm shadow-stone-950"
-            type="text"
-            placeholder="Enter your prompt"
-            value={currentPrompt}
-            onChange={(e) => setCurrentPrompt(e.target.value)}
-          />
-
-          <button
-            className="bg-white shadow-sm shadow-stone-950 text-stone-950 font-semibold rounded-lg w-24 hover:bg-stone-950 hover:text-stone-100"
-            type="submit"
-          >
-            Send
-          </button>
-        </form>
+        <UserInput
+          currentPrompt={currentPrompt}
+          setCurrentPrompt={setCurrentPrompt}
+          handleSubmit={handleSubmit}
+        />
         <div className="h-6 w-full">
           {errorMessage && (
             <span className="text-red-500 font-semibold items-start flex justify-start px-8">
